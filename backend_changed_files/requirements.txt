@@ -1,0 +1,7 @@
+Flask
+requests
+gunicorn
+flask-cors
+numpy
+tensorflow
+scikit-learn==1.2.2

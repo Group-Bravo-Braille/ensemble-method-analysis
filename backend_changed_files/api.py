@@ -10,6 +10,7 @@ import pickle
 from aux_functions import clean_text
 from pred import predict_text
 from ensemble_pred import predict_text_rfc
+import sklearn
 
 liblouis_bin_path = os.path.abspath('liblouis-bin')
 os.environ['LD_LIBRARY_PATH'] = liblouis_bin_path
@@ -74,7 +75,7 @@ def backtranslate():
 def lstm():
     data = request.get_json()
     text = data.get('text', '')
-    tableList = data.get('tableList', ["en-us-g2.ctb"])
+    # tableList = data.get('tableList', ["en-us-g2.ctb"])
     cleaned_text = clean_text(text)
     pred = predict_text(cleaned_text, model, all_chars, type_chars, encoded)
     return jsonify({"pred": pred})
@@ -83,7 +84,7 @@ def lstm():
 def fivegram():
     data = request.get_json()
     text = data.get('text', '')
-    tableList = data.get('tableList', ["en-us-g2.ctb"])
+    # tableList = data.get('tableList', ["en-us-g2.ctb"])
     cleaned_text = clean_text(text)
     pred = next_char(cleaned_text, fivegram_model)
     return jsonify({"pred": pred})
@@ -92,7 +93,7 @@ def fivegram():
 def randomforest():
     data = request.get_json()
     text = data.get('text', '')
-    tableList = data.get('tableList', ["en-us-g2.ctb"])
+    # tableList = data.get('tableList', ["en-us-g2.ctb"])
     cleaned_text = clean_text(text)
     pred = predict_text_rfc(
         cleaned_text,
